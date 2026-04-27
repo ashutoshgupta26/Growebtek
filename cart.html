@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Growebtek</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="Growebtek Logo" onerror="this.src='https://via.placeholder.com/150x50/050505/ffffff?text=GROWEBTEK'">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn"><i class="fas fa-search"></i></button>
+            <a href="cart.html" class="icon-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <a href="auth.html" class="btn-outline auth-link">Log In</a>
+            <a href="profile.html" class="btn-outline user-link" style="display: none;">Profile</a>
+            <a href="admin.html" class="btn-outline admin-link" style="display: none;">Admin</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Your Cart</h1>
+    </header>
+
+    <!-- Cart Layout -->
+    <section class="cart-layout animate-on-scroll">
+        
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Items injected by main.js -->
+        </div>
+
+        <!-- Summary Sidebar -->
+        <div class="cart-summary">
+            <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+            
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">₹0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Taxes (Estimated)</span>
+                <span id="cartTaxes">₹0.00</span>
+            </div>
+            <div class="summary-row" style="color: #10b981;">
+                <span>Discount applied</span>
+                <span>-₹0.00</span>
+            </div>
+
+            <div class="form-group" style="margin-top: 1.5rem; display: flex; gap: 10px;">
+                <input type="text" class="form-control" placeholder="Promo Code" style="flex-grow: 1;">
+                <button class="btn-outline">Apply</button>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="cartTotal">₹0.00</span>
+            </div>
+
+            <a href="checkout.html" class="btn-primary" style="display: block; text-align: center; margin-top: 1.5rem; padding: 1rem;">Proceed to Checkout</a>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);"><i class="fas fa-lock"></i> Secure SSL Checkout</p>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo.png" alt="Growebtek" style="height: 40px; margin-bottom: 1rem;" onerror="this.style.display='none'">
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Delivering state-of-the-art AI software solutions and IT infrastructure to forward-thinking enterprises.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Web App Development</a></li>
+                    <li><a href="#">Digital Marketing</a></li>
+                    <li><a href="#">Graphic Design</a></li>
+                    <li><a href="#">IT Support & AMC</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Growebtek IT Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login/Signup Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Welcome Back</h2>
+            <form>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Don't have an account? <a href="#" style="color: var(--primary-blue);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Growebtek</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <style>
+        .admin-container { max-width: 1200px; margin: 100px auto; padding: 2rem; display: flex; gap: 2rem; }
+        .sidebar { width: 250px; background: var(--bg-card); padding: 1rem; border-radius: 12px; }
+        .sidebar button { display: block; width: 100%; padding: 1rem; margin-bottom: 0.5rem; text-align: left; background: none; border: none; cursor: pointer; font-weight: bold; border-radius: 8px; }
+        .sidebar button.active { background: var(--color-primary); color: white; }
+        .content { flex: 1; background: var(--bg-card); padding: 2rem; border-radius: 12px; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #eee; }
+        
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px; }
+        .btn { padding: 0.8rem 1.5rem; background: var(--color-primary); color: white; border: none; border-radius: 6px; cursor: pointer; }
+        .btn-danger { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Growebtek Admin</a>
+        <ul class="nav-links">
+            <li><a href="profile.html">My Profile</a></li>
+            <li><button onclick="supabaseClient.auth.signOut(); window.location.href='index.html'" class="btn">Logout</button></li>
+        </ul>
+    </nav>
+
+    <div class="admin-container" id="admin-auth-check" style="display: none;">
+        <div class="sidebar">
+            <button class="active" onclick="switchTab('products')">Products</button>
+            <button onclick="switchTab('orders')">Orders</button>
+        </div>
+        <div class="content">
+            <!-- Products Tab -->
+            <div id="products-tab" class="tab-content active">
+                <h2>Manage Products</h2>
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3>Add New Product</h3>
+                    <form id="add-product-form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="p-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="p-desc" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (₹)</label>
+                            <input type="number" id="p-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Discount (₹)</label>
+                            <input type="number" id="p-discount" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Image Upload</label>
+                            <input type="file" id="p-image" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn">Add Product</button>
+                    </form>
+                </div>
+                
+                <h3>Current Products</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-list">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="orders-tab" class="tab-content">
+                <h2>Manage Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) { window.location.href = 'auth.html'; return; }
+            
+            const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).single();
+            if (!profile || !profile.is_admin) {
+                alert('Access Denied. Admins only.');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            document.getElementById('admin-auth-check').style.display = 'flex';
+            loadProducts();
+            loadOrders();
+        });
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sidebar button').forEach(el => el.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Product Management
+        document.getElementById('add-product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const description = document.getElementById('p-desc').value;
+            const price = document.getElementById('p-price').value;
+            const discount = document.getElementById('p-discount').value;
+            const file = document.getElementById('p-image').files[0];
+
+            // Upload image
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random()}.${fileExt}`;
+            const { error: uploadError } = await supabaseClient.storage.from('products').upload(fileName, file);
+            if (uploadError) { alert('Image upload failed: ' + uploadError.message); return; }
+
+            const { data: publicUrlData } = supabaseClient.storage.from('products').getPublicUrl(fileName);
+            const image_url = publicUrlData.publicUrl;
+
+            const { error } = await supabaseClient.from('products').insert([
+                { name, description, price, special_discount: discount, image_url }
+            ]);
+
+            if (error) alert('Error adding product: ' + error.message);
+            else { alert('Product added!'); loadProducts(); e.target.reset(); }
+        });
+
+        async function loadProducts() {
+            const { data } = await supabaseClient.from('products').select('*').order('created_at', { ascending: false });
+            const tbody = document.getElementById('products-list');
+            tbody.innerHTML = data.map(p => `
+                <tr>
+                    <td><img src="${p.image_url}" style="width: 50px; height: 50px; object-fit: cover;"></td>
+                    <td>${p.name}</td>
+                    <td>₹${p.price}</td>
+                    <td>₹${p.special_discount}</td>
+                    <td>
+                        <button onclick="deleteProduct('${p.id}')" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function deleteProduct(id) {
+            if (confirm('Are you sure?')) {
+                await supabaseClient.from('products').delete().eq('id', id);
+                loadProducts();
+            }
+        }
+
+        // Order Management
+        async function loadOrders() {
+            const { data } = await supabaseClient.from('orders').select('*, profiles(email)').order('created_at', { ascending: false });
+            const tbody = document.getElementById('orders-list');
+            tbody.innerHTML = data.map(o => `
+                <tr>
+                    <td>${o.id.substring(0,8)}</td>
+                    <td>${o.profiles?.email || 'Unknown'}</td>
+                    <td>₹${o.total_amount}</td>
+                    <td>
+                        <select onchange="updateOrderStatus('${o.id}', this.value)">
+                            <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="approved" ${o.status === 'approved' ? 'selected' : ''}>Approved</option>
+                            <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                            <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="${o.payment_proof_url}" target="_blank">View Payment Proof</a>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateOrderStatus(id, status) {
+            const { error } = await supabaseClient.from('orders').update({ status }).eq('id', id);
+            if (error) alert('Error updating status: ' + error.message);
+            else alert('Status updated');
+        }
+    </script>
+</body>
+</html>

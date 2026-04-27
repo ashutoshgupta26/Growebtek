@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up | Growebtek</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #111827, #000000);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.3), transparent 30%);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .auth-container h2 {
+            margin-top: 0;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 2.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.6);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .auth-switch span {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .auth-switch:hover span {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* OTP Styles */
+        .otp-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .otp-container input {
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 0;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+        .otp-container input:focus {
+            border-color: #60a5fa;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="Growebtek" style="height: 40px;" onerror="this.src='https://via.placeholder.com/150x50/000000/ffffff?text=GROWEBTEK'">
+        </a>
+    </nav>
+
+    <div class="auth-container">
+        <!-- Login & Signup Form -->
+        <div id="main-auth-section">
+            <h2 id="auth-title">Welcome Back</h2>
+            <form id="auth-form">
+                <div class="form-group hidden" id="name-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="auth-name" placeholder="Username (e.g. growebtekadmin)">
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="auth-email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="auth-password" placeholder="Password" required minlength="6">
+                </div>
+                <button type="submit" class="auth-btn" id="auth-submit">Sign In</button>
+            </form>
+            <div class="auth-switch" id="auth-toggle">
+                Don't have an account? <span>Sign Up</span>
+            </div>
+        </div>
+
+        <!-- OTP Verification Form -->
+        <div id="otp-section" class="hidden">
+            <h2>Verify Email</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem; color: #d1d5db; font-size: 0.9rem;">
+                A 6-digit verification code has been sent to your email. Please enter it below.
+            </p>
+            <form id="otp-form">
+                <div class="otp-container">
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                    <input type="text" maxlength="1" class="otp-input" required>
+                </div>
+                <button type="submit" class="auth-btn" id="otp-submit">Verify Account</button>
+            </form>
+            <div class="auth-switch" onclick="location.reload()">
+                <span>Back to Login</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLogin = true;
+        let pendingEmail = "";
+
+        // UI toggling for Login vs Signup
+        function updateUI() {
+            document.getElementById('auth-title').innerText = isLogin ? 'Welcome Back' : 'Create Account';
+            document.getElementById('auth-submit').innerText = isLogin ? 'Sign In' : 'Sign Up';
+            document.getElementById('auth-toggle').innerHTML = isLogin ? "Don't have an account? <span>Sign Up</span>" : "Already have an account? <span>Sign In</span>";
+            
+            const nameGroup = document.getElementById('name-group');
+            if (isLogin) {
+                nameGroup.classList.add('hidden');
+                document.getElementById('auth-name').required = false;
+            } else {
+                nameGroup.classList.remove('hidden');
+                document.getElementById('auth-name').required = true;
+            }
+        }
+
+        document.getElementById('auth-toggle').addEventListener('click', () => {
+            isLogin = !isLogin;
+            updateUI();
+        });
+
+        // OTP Input Auto-advance logic
+        const otpInputs = document.querySelectorAll('.otp-input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= '0' && e.key <= '9') {
+                    if (index < otpInputs.length - 1) otpInputs[index + 1].focus();
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Main Auth Form Submission
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const name = document.getElementById('auth-name').value;
+            const submitBtn = document.getElementById('auth-submit');
+            
+            submitBtn.innerText = 'Processing...';
+            submitBtn.disabled = true;
+
+            try {
+                if (isLogin) {
+                    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    window.location.href = 'profile.html';
+                } else {
+                    const { error } = await supabaseClient.auth.signUp({
+                        email,
+                        password,
+                        options: { 
+                            data: { 
+                                full_name: name, 
+                                username: name === 'growebtekadmin' ? name : email.split('@')[0] 
+                            } 
+                        }
+                    });
+                    if (error) throw error;
+                    
+                    // Show OTP Verification
+                    pendingEmail = email;
+                    document.getElementById('main-auth-section').classList.add('hidden');
+                    document.getElementById('otp-section').classList.remove('hidden');
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+            } finally {
+                submitBtn.innerText = isLogin ? 'Sign In' : 'Sign Up';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // OTP Verification Submission
+        document.getElementById('otp-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('otp-submit');
+            btn.innerText = 'Verifying...';
+            btn.disabled = true;
+
+            try {
+                let token = "";
+                otpInputs.forEach(input => token += input.value);
+
+                const { data, error } = await supabaseClient.auth.verifyOtp({
+                    email: pendingEmail,
+                    token: token,
+                    type: 'signup'
+                });
+
+                if (error) throw error;
+
+                alert("Account activated successfully! You can now log in.");
+                window.location.reload();
+
+            } catch (err) {
+                alert('Verification Error: ' + err.message);
+                btn.innerText = 'Verify Account';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

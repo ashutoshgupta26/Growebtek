@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growebtek IT Solutions | High-End AI Software Solutions</title>
+    <meta name="description" content="Premium end-to-end AI software solutions, web app development, digital marketing, and IT support for businesses.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <!-- Assuming the user places logo.png in the directory or uses a placeholder -->
+            <img src="logo.png" alt="Growebtek Logo" onerror="this.src='https://via.placeholder.com/150x50/050505/ffffff?text=GROWEBTEK'">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" style="color: var(--text-main);">Home</a></li>
+            <li><a href="products.html">Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn"><i class="fas fa-search"></i></button>
+            <a href="cart.html" class="icon-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <a href="auth.html" class="btn-outline auth-link">Log In</a>
+            <a href="profile.html" class="btn-outline user-link" style="display: none;">Profile</a>
+            <a href="admin.html" class="btn-outline admin-link" style="display: none;">Admin</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Next-Gen AI Solutions</span>
+            <h1>Empowering Your Business with AI Technologies</h1>
+            <p>End-to-end digital software solutions including Web Development, Digital Marketing, and intelligent IT Support tailored for enterprise growth.</p>
+            <div class="hero-btns">
+                <a href="products.html" class="btn-primary">Explore Services</a>
+                <a href="#" class="btn-outline">Talk to an Expert</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Highlights -->
+    <section class="section bg-darker">
+        <div class="section-header animate-on-scroll">
+            <h2>Our Core Competencies</h2>
+            <p>Discover our comprehensive suite of IT and AI-driven solutions designed to scale your operations.</p>
+        </div>
+        <div class="categories-wrap animate-on-scroll">
+            <a href="products.html" class="category-card">
+                <i class="fas fa-laptop-code category-icon"></i>
+                <h3>Web App Dev</h3>
+            </a>
+            <a href="products.html" class="category-card">
+                <i class="fas fa-bullhorn category-icon"></i>
+                <h3>Digital Marketing</h3>
+            </a>
+            <a href="products.html" class="category-card">
+                <i class="fas fa-paint-brush category-icon"></i>
+                <h3>Graphic Design</h3>
+            </a>
+            <a href="products.html" class="category-card">
+                <i class="fas fa-headset category-icon"></i>
+                <h3>IT Support</h3>
+            </a>
+            <a href="products.html" class="category-card">
+                <i class="fas fa-tools category-icon"></i>
+                <h3>Repair & AMC</h3>
+            </a>
+        </div>
+    </section>
+
+    <!-- Trending Services / Products -->
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <h2>Trending Solutions</h2>
+            <p>Our most sought-after AI and digital packages configured for immediate deployment.</p>
+        </div>
+        <div class="product-grid animate-on-scroll">
+            <!-- Product Card 1 -->
+            <a href="product.html?id=analytics" class="product-card">
+                <span class="product-badge">-20%</span>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Data Analytics Dashboard" class="product-img">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Web App Development</span>
+                    <h3 class="product-title">AI Analytics Dashboard</h3>
+                    <p class="product-desc">Real-time data visualization and AI predictive modeling platform for enterprises.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,499</span>
+                        <button class="btn-primary" style="padding: 0.4rem 1rem;">Details</button>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Product Card 2 -->
+            <a href="product.html?id=seo" class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="SEO Optimization" class="product-img">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Digital Marketing</span>
+                    <h3 class="product-title">Enterprise SEO Suite</h3>
+                    <p class="product-desc">Comprehensive digital marketing strategy powered by machine learning algorithms.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹899/mo</span>
+                        <button class="btn-primary" style="padding: 0.4rem 1rem;">Details</button>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Product Card 3 -->
+            <a href="product.html?id=it" class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="IT Support Team" class="product-img">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">IT Support</span>
+                    <h3 class="product-title">24/7 Managed IT Services</h3>
+                    <p class="product-desc">Proactive monitoring and technical support with AI-driven incident resolution.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹499/mo</span>
+                        <button class="btn-primary" style="padding: 0.4rem 1rem;">Details</button>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section bg-darker">
+        <div class="section-header animate-on-scroll">
+            <h2>Client Success Stories</h2>
+            <p>Don't just take our word for it. Hear from the global enterprises that have transformed their operations with our AI solutions.</p>
+        </div>
+        <div class="testimonials-grid animate-on-scroll">
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"Growebtek completely revolutionized our data pipeline. Their AI analytics dashboard helped us reduce operational costs by 30% in just one quarter. A highly professional and dedicated team."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=150" alt="Sarah J." class="author-img">
+                    <div class="author-info">
+                        <h4>Sarah Jenkins</h4>
+                        <p>CTO, Nexus Corp</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"The enterprise SEO suite and digital marketing strategies provided by Growebtek boosted our inbound leads by 150%. Their machine learning approach to keyword research is truly next-gen."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150" alt="Michael R." class="author-img">
+                    <div class="author-info">
+                        <h4>Michael Rodriguez</h4>
+                        <p>VP Marketing, ElevateTech</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"We outsourced our entire IT support and AMC to Growebtek. Their 24/7 proactive monitoring and AI-driven incident resolution means we literally have zero downtime. Absolute lifesavers."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=150" alt="David L." class="author-img">
+                    <div class="author-info">
+                        <h4>David Lin</h4>
+                        <p>Director of Operations, FinServe</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"Their web app development team is world-class. They delivered a highly complex custom AI application ahead of schedule. The UX is flawless, and the performance is lightning fast."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150" alt="Emily C." class="author-img">
+                    <div class="author-info">
+                        <h4>Emily Chen</h4>
+                        <p>Founder, InnovateAI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section class="section" style="padding: 2rem 5%;">
+        <div class="animate-on-scroll" style="background: linear-gradient(135deg, var(--primary-blue), #1e3a8a); border-radius: 16px; padding: 4rem; text-align: center; position: relative; overflow: hidden;">
+            <div style="position: relative; z-index: 2;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Transform Your Business Today</h2>
+                <p style="font-size: 1.1rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Get 30% off on all annual Maintenance and AMC contracts when you sign up this month.</p>
+                <a href="products.html" class="btn-primary" style="background: white; color: var(--primary-blue); font-weight: 700; font-size: 1.1rem; padding: 1rem 2.5rem;">Claim Offer</a>
+            </div>
+            <!-- Decorative circle -->
+            <div style="position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo.png" alt="Growebtek" style="height: 40px; margin-bottom: 1rem;" onerror="this.style.display='none'">
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Delivering state-of-the-art AI software solutions and IT infrastructure to forward-thinking enterprises.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Web App Development</a></li>
+                    <li><a href="#">Digital Marketing</a></li>
+                    <li><a href="#">Graphic Design</a></li>
+                    <li><a href="#">IT Support & AMC</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Growebtek IT Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login/Signup Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Welcome Back</h2>
+            <form>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Don't have an account? <a href="#" style="color: var(--primary-blue);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

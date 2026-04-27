@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Growebtek IT Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="Growebtek Logo" onerror="this.src='https://via.placeholder.com/150x50/050505/ffffff?text=GROWEBTEK'">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html" style="color: var(--text-main);">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn"><i class="fas fa-search"></i></button>
+            <a href="cart.html" class="icon-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <a href="auth.html" class="btn-outline auth-link">Log In</a>
+            <a href="profile.html" class="btn-outline user-link" style="display: none;">Profile</a>
+            <a href="admin.html" class="btn-outline admin-link" style="display: none;">Admin</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header animate-on-scroll">
+        <h1>Contact Us</h1>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">We're just a call away! Reach out to us for any queries, quotations, or IT support requests.</p>
+    </header>
+
+    <section class="section" style="padding-top: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem;">
+            
+            <!-- Contact Info -->
+            <div class="animate-on-scroll">
+                <h3 style="font-size: 1.8rem; margin-bottom: 2rem;">Get in Touch</h3>
+                
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(0,82,204,0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary-blue);">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Office Address</h4>
+                        <p style="color: var(--text-muted); line-height: 1.6;">Growebtek Technologies IT Solutions<br>Metro Station 410 DDA MIG Flat (Ground Floor),<br>Metro Apartment near Bhalswa,<br>Jahangirpuri Delhi, 110033</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(0,82,204,0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary-blue);">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Call Us</h4>
+                        <p style="color: var(--text-muted);"><a href="tel:+918700436279">+91 8700436279</a></p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(0,82,204,0.1); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary-blue);">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Working Hours</h4>
+                        <p style="color: var(--text-muted); line-height: 1.6;">Monday - Friday: 8:30am – 7:00pm<br>Saturday: 9:30am – 5:00pm<br>Sunday: Closed</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/+918700436279?text=Hi+there!+I+discovered+your+services+and+I'm+interested+in+what+you+offer." target="_blank" class="btn-primary" style="background: #25D366; color: white; display: inline-flex; align-items: center; gap: 10px;">
+                        <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Message on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="animate-on-scroll">
+                <div style="width: 100%; height: 500px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border);">
+                    <iframe 
+                        src="https://www.google.com/maps?q=Growebtek+Technologies+IT+Solutions,+Metro+Apartment,+Jahangirpuri,+Delhi&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo.png" alt="Growebtek" style="height: 40px; margin-bottom: 1rem;" onerror="this.style.display='none'">
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Delivering state-of-the-art AI software solutions and IT infrastructure to forward-thinking enterprises.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="products.html">Web App Development</a></li>
+                    <li><a href="products.html">Digital Marketing</a></li>
+                    <li><a href="products.html">Graphic Design</a></li>
+                    <li><a href="products.html">IT Support & AMC</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/growebtek" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Growebtek IT Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Welcome Back</h2>
+            <form>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Don't have an account? <a href="#" style="color: var(--primary-blue);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

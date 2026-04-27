@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Growebtek IT Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .about-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .about-content h2 {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--text-main);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        .stat-box {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .partners-banner {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            opacity: 0.6;
+        }
+        .partners-banner i {
+            font-size: 3rem;
+            transition: var(--transition);
+        }
+        .partners-banner i:hover {
+            opacity: 1;
+            color: var(--primary-blue);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="logo.png" alt="Growebtek Logo" onerror="this.src='https://via.placeholder.com/150x50/050505/ffffff?text=GROWEBTEK'">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Services</a></li>
+            <li><a href="about.html" style="color: var(--text-main);">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="icon-btn"><i class="fas fa-search"></i></button>
+            <a href="cart.html" class="icon-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <a href="auth.html" class="btn-outline auth-link">Log In</a>
+            <a href="profile.html" class="btn-outline user-link" style="display: none;">Profile</a>
+            <a href="admin.html" class="btn-outline admin-link" style="display: none;">Admin</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header animate-on-scroll">
+        <h1>About Growebtek IT Solutions</h1>
+        <p style="color: var(--text-muted); max-width: 800px; margin: 0 auto;">Pioneering the future of digital transformation through advanced Artificial Intelligence, state-of-the-art Web Application Development, and uncompromising Enterprise IT Infrastructure.</p>
+    </header>
+
+    <section class="section about-content" style="padding-top: 0; max-width: 1000px; margin: 0 auto;">
+        
+        <div class="animate-on-scroll">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1200" alt="Corporate Office" style="width: 100%; border-radius: 16px; margin-bottom: 3rem; border: 1px solid var(--glass-border);">
+            
+            <h2>Our Genesis and Vision</h2>
+            <p>Welcome to Growebtek IT Solutions, an industry-leading software and technology company established with a singular, resolute mission: to empower global enterprises by bridging the gap between complex AI capabilities and everyday business operations. Operating from our strategic headquarters in Delhi NCR, we have expanded our footprint internationally, establishing ourselves as the vanguard of digital innovation, web application architecture, and cognitive computing services.</p>
+            
+            <p>In today's hyper-competitive digital economy, relying on legacy systems is no longer viable. We recognize that the future belongs to organizations that can harness the immense power of Artificial Intelligence, Machine Learning, and Big Data. At Growebtek, our vision is to democratize these cutting-edge technologies. We build bespoke, scalable, and highly secure digital platforms that not only solve immediate operational bottlenecks but also future-proof our clients against the unpredictable shifts of the global market.</p>
+
+            <p>From the inception of a mere idea to the deployment of complex, multi-tiered enterprise architecture, our methodology is rooted in absolute precision. We don't just write code; we engineer sophisticated digital ecosystems. We immerse ourselves in our clients' industries, analyzing their unique challenges, and subsequently deploy algorithmic solutions that drive unprecedented efficiency, explosive revenue growth, and profound customer engagement.</p>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Global Clients Served</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Retention Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">1.2M+</div>
+                    <div class="stat-label">Lines of Code Deployed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Dedicated Support</div>
+                </div>
+            </div>
+
+            <h2>Mastering the AI & Digital Software Landscape</h2>
+            <p>Our service portfolio is exhaustively comprehensive, designed to be the ultimate end-to-end solution for any technological requirement. At the core of our offerings is our <strong>Web Application Development</strong> division. We utilize modern, high-performance tech stacks to build progressive web apps (PWAs), dynamic Single Page Applications (SPAs), and robust enterprise portals. By integrating natural language processing (NLP) and predictive analytics directly into these applications, we transform static websites into intelligent platforms capable of analyzing user behavior, personalizing content in real-time, and automating complex workflows.</p>
+
+            <p>Furthermore, our <strong>Digital Marketing & SEO Engineering</strong> is not based on guesswork, but on cold, hard data. We leverage proprietary machine learning algorithms to conduct deep competitor analysis, discover high-converting keyword matrices, and automate large-scale marketing campaigns. Whether it is Search Engine Optimization (SEO), Pay-Per-Click (PPC) management, or dynamic social media retargeting, our AI-driven approach guarantees a mathematically optimized Return on Ad Spend (ROAS). We ensure that our clients dominate the search engine results pages, effectively monopolizing their respective market niches.</p>
+
+            <p>We also understand that software is only as reliable as the infrastructure it runs on. Our <strong>IT Support and Annual Maintenance Contracts (AMC)</strong> provide ironclad security and uninterrupted uptime. We utilize AI-powered proactive monitoring systems that detect anomalous network behavior and potential hardware failures long before they can disrupt business operations. Our rapid-response teams provide 24/7 incident resolution, ensuring that our clients' digital assets remain secure, compliant, and continuously operational.</p>
+
+            <h2>Our Global Footprint & Trusted Partners</h2>
+            <p>Over the years, Growebtek has had the distinct privilege of partnering with some of the most dynamic organizations across the globe. Our clientele spans multiple continents, encompassing Fortune 500 conglomerates, disruptive tech startups, government agencies, and leading e-commerce conglomerates. We have successfully deployed tailored AI solutions in the FinTech, Healthcare, Logistics, and Retail sectors, proving the universal applicability of our technological expertise.</p>
+            
+            <p>We believe that strong alliances build stronger technologies. That is why we collaborate closely with global technology leaders to ensure our tech stack remains at the absolute cutting edge. While we maintain a vendor-agnostic approach to ensure the best fit for our clients, our engineers are deeply certified in the ecosystems of major cloud providers and AI frameworks.</p>
+
+            <div class="partners-banner">
+                <i class="fab fa-aws"></i>
+                <i class="fab fa-google"></i>
+                <i class="fab fa-microsoft"></i>
+                <i class="fab fa-react"></i>
+                <i class="fab fa-node-js"></i>
+                <i class="fab fa-python"></i>
+            </div>
+
+            <h2>The Growebtek Philosophy</h2>
+            <p>What truly separates Growebtek from traditional IT agencies is our uncompromising commitment to excellence and our philosophy of proactive innovation. We operate under the firm belief that "good enough" is a formula for obsolescence. Every line of code written, every UI/UX interface designed, and every neural network trained undergoes rigorous, multi-stage quality assurance testing. We obsess over the micro-interactions, the latency metrics, and the aesthetic fluidity of our deliverables because we know that premium brands demand premium execution.</p>
+
+            <p>Our team is an elite collective of senior software engineers, data scientists, UX researchers, and cybersecurity experts. We foster a culture of continuous, aggressive learning. In the rapidly evolving domain of Artificial Intelligence, stagnation is death. Therefore, we heavily invest in R&D, constantly experimenting with new large language models (LLMs), generative AI tools, and decentralized architectures to ensure that the solutions we deliver tomorrow are vastly superior to the ones we delivered yesterday.</p>
+
+            <p>Transparency, integrity, and measurable results form the bedrock of our client relationships. When you partner with Growebtek, you are not merely hiring a vendor; you are acquiring a dedicated technology division committed entirely to the exponential growth of your enterprise. We provide granular, real-time analytics dashboards to all our clients, ensuring absolute visibility into project milestones, marketing performance, and infrastructure health.</p>
+
+            <h2>Looking Towards the Future</h2>
+            <p>As we navigate through the fourth industrial revolution, the integration of Artificial Intelligence into the corporate DNA is no longer an luxury—it is an absolute necessity for survival. Growebtek is positioned at the very forefront of this paradigm shift. We are currently pioneering new applications in predictive supply chain modeling, autonomous customer service agents, and highly personalized generative e-commerce experiences.</p>
+
+            <p>If your organization is prepared to transcend traditional limitations, optimize operational efficiency to unprecedented levels, and dominate your industry through superior technological leverage, Growebtek IT Solutions is your definitive partner. Join the hundreds of global enterprises that have already revolutionized their businesses with our expertise. The future is intelligent, and with Growebtek, you are already there.</p>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo.png" alt="Growebtek" style="height: 40px; margin-bottom: 1rem;" onerror="this.style.display='none'">
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Delivering state-of-the-art AI software solutions and IT infrastructure to forward-thinking enterprises.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="products.html">Web App Development</a></li>
+                    <li><a href="products.html">Digital Marketing</a></li>
+                    <li><a href="products.html">Graphic Design</a></li>
+                    <li><a href="products.html">IT Support & AMC</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/growebtek" style="font-size: 1.5rem; color: var(--text-muted);"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Growebtek IT Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Welcome Back</h2>
+            <form>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Don't have an account? <a href="#" style="color: var(--primary-blue);">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
